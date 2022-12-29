@@ -36,6 +36,7 @@ class LoginView(GenericAPIView):
         if(check_password(password,user.password)):
             if user is not None:
                 login(request, user)
+                # token_obj = Token.objects.get_or_create(user=user);'''works without underscore but gives bool value at the end of token'''
                 token_obj, _ = Token.objects.get_or_create(user=user)
                 return Response({'token':str(token_obj),'payload':"successfully log in",'status':200})
         return Response({'msg': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
